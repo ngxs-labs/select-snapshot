@@ -3,7 +3,7 @@ import { Store, ɵm as NgxsConfig } from '@ngxs/store';
 
 class NgxsSelectSnapshotModuleIsNotImported extends Error {
   constructor() {
-    super(`You've forgotten to import "NgxsSelectSnapshotModule"!`)
+    super(`You've forgotten to import "NgxsSelectSnapshotModule"!`);
   }
 }
 
@@ -26,14 +26,14 @@ export class StaticInjectorAccessor {
       throw new NgxsSelectSnapshotModuleIsNotImported();
     }
 
-    return this.injector.get(Store);
+    return this.injector.get<Store>(Store);
   }
 
   public static getConfig(): never | NgxsConfig {
-    if (this.injector === null)  {
+    if (this.injector === null) {
       throw new NgxsSelectSnapshotModuleIsNotImported();
     }
 
-    return this.injector.get(NgxsConfig);
+    return this.injector.get<NgxsConfig>(NgxsConfig);
   }
 }
