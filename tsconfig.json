@@ -1,0 +1,23 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "target": "es5",
+      "typeRoots": ["node_modules/@types"],
+      "lib": [
+        "es2018",
+        "dom"
+      ],
+      "moduleResolution": "node",
+      "strict": true,
+      "allowJs": false,
+      "sourceMap": true,
+      "declaration": false,
+      "resolveJsonModule": true,
+      "noImplicitReturns": true,
+      "noUnusedParameters": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "noFallthroughCasesInSwitch": true,
+      "suppressImplicitAnyIndexErrors": true
+    }
+  }

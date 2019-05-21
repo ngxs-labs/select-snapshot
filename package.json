@@ -1,0 +1,78 @@
+{
+  "name": "select-snapshot",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngxs-labs/select-snapshot.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/ngxs-labs/select-snapshot#readme",
+  "bugs": {
+    "url": "https://github.com/ngxs-labs/select-snapshot/issues"
+  },
+  "keywords": [
+    "ngxs",
+    "redux",
+    "store"
+  ],
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "e2e": "ng e2e",
+    "// - UTILS": "Utility scripts",
+    "format": "prettier src/**/*.ts --write",
+    "select-snapshot:lint": "ng lint select-snapshot",
+    "select-snapshot:test": "ng test --runInBand",
+    "select-snapshot:build": "ts-node ./tools/build && ts-node ./tools/copy-readme",
+    "select-snapshot:rollup": "rollup -c rollup.config.js",
+    "// - CI": "CI pipelines",
+    "ci:pipelines": "npm-run-all select-snapshot:*",
+    "// - npm": "npm scripts",
+    "bump": "ts-node ./tools/bump"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "7.2.15",
+    "@angular/compiler": "7.2.15",
+    "@angular/core": "7.2.15",
+    "@angular/platform-browser": "7.2.15",
+    "@angular/platform-browser-dynamic": "7.2.15",
+    "@ngxs/store": "3.4.3",
+    "core-js": "2.6.5",
+    "rxjs": "6.5.2",
+    "zone.js": "0.9.1"
+  },
+  "devDependencies": {
+    "@angular-builders/jest": "7.4.2",
+    "@angular-devkit/build-angular": "0.13.9",
+    "@angular-devkit/build-ng-packagr": "0.13.9",
+    "@angular/cli": "7.3.9",
+    "@angular/compiler-cli": "7.2.15",
+    "@commitlint/cli": "7.6.1",
+    "@commitlint/config-angular": "7.6.0",
+    "@types/jest": "^24.0.13",
+    "@types/node": "11.10.0",
+    "@types/semver": "5.5.0",
+    "@types/yargs": "12.0.11",
+    "codelyzer": "4.5.0",
+    "husky": "2.3.0",
+    "jest": "^24.8.0",
+    "lint-staged": "8.1.7",
+    "ng-packagr": "4.7.1",
+    "npm-run-all": "4.1.5",
+    "prettier": "1.17.1",
+    "protractor": "5.4.2",
+    "rollup": "1.12.3",
+    "rollup-plugin-node-resolve": "4.2.4",
+    "rollup-plugin-sourcemaps": "0.4.2",
+    "semver": "5.6.0",
+    "ts-node": "8.1.0",
+    "tsickle": "0.35.0",
+    "tslib": "1.9.3",
+    "tslint": "5.16.0",
+    "tslint-sonarts": "1.9.0",
+    "typescript": "3.1.6",
+    "yargs": "13.2.4"
+  }
+}
