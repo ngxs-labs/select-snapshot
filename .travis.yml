@@ -19,5 +19,4 @@ script:
   - cd integration/universal
   - echo $(pwd)
   - *install-dependencies
-  - yarn build:ssr
   - yarn test:ssr
