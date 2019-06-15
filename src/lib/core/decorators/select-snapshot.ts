@@ -1,4 +1,4 @@
-import { StaticInjectorAccessor } from '../internals/static-injector-accessor';
+import { StaticInjector } from '../internals/static-injector';
 import { META_KEY, getPropsArray, propGetter, removeDollarAtTheEnd } from '../internals/internals';
 
 export function SelectSnapshot(selectorOrFeature?: any, ...paths: string[]) {
@@ -9,8 +9,8 @@ export function SelectSnapshot(selectorOrFeature?: any, ...paths: string[]) {
       selectorOrFeature = removeDollarAtTheEnd(name);
     }
 
-    const createSelector = () => {
-      const config = StaticInjectorAccessor.getConfig();
+    const createSelector = (selectorOrFeature: any) => {
+      const config = StaticInjector.getConfig();
 
       if (typeof selectorOrFeature === 'string') {
         const propsArray = getPropsArray(selectorOrFeature, paths);
@@ -32,8 +32,9 @@ export function SelectSnapshot(selectorOrFeature?: any, ...paths: string[]) {
       Object.defineProperty(target, name, {
         get: function() {
           // Create anonymous function that will map to the needed state only once
-          const selector = this[selectorFnName] || (this[selectorFnName] = createSelector());
-          const store = StaticInjectorAccessor.getStore();
+          const selector =
+            this[selectorFnName] || (this[selectorFnName] = createSelector(selectorOrFeature));
+          const store = StaticInjector.getStore();
           return store.selectSnapshot(selector);
         },
         enumerable: true,

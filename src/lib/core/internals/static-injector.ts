@@ -8,19 +8,13 @@ class NgxsSelectSnapshotModuleIsNotImported extends Error {
 }
 
 @Injectable()
-export class StaticInjectorAccessor {
+export class StaticInjector {
   private static injector: Injector | null = null;
 
   constructor(injector: Injector) {
-    StaticInjectorAccessor.injector = injector;
+    StaticInjector.injector = injector;
   }
 
-  /**
-   * The `StaticInjectorAccessor` service can be treated as a `Service Locator`,
-   * at some points service locator is an anti-pattern that breaks SOLID principles,
-   * thus we should restrict access to dependencies and provide public interface for
-   * only necessary dependencies as `Store` and `NgxsConfig`
-   */
   public static getStore(): never | Store {
     if (this.injector === null) {
       throw new NgxsSelectSnapshotModuleIsNotImported();
