@@ -1,15 +1,15 @@
 import { NgModule, ModuleWithProviders, Self } from '@angular/core';
 
-import { StaticInjectorAccessor } from './core/internals/static-injector-accessor';
+import { StaticInjector } from './core/internals/static-injector';
 
 @NgModule()
 export class NgxsSelectSnapshotModule {
-  constructor(@Self() private staticInjectorAccessor: StaticInjectorAccessor) {}
+  constructor(@Self() private staticInjector: StaticInjector) {}
 
   public static forRoot(): ModuleWithProviders<NgxsSelectSnapshotModule> {
     return {
       ngModule: NgxsSelectSnapshotModule,
-      providers: [StaticInjectorAccessor]
+      providers: [StaticInjector]
     };
   }
 }

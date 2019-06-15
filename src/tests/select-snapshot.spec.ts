@@ -246,7 +246,7 @@ describe('SelectSnapshot', () => {
 
     // Assert
     const { componentInstance } = TestBed.createComponent(TestComponent);
-    const store: Store = TestBed.get(Store);
+    const store: Store = TestBed.get<Store>(Store);
 
     store.dispatch([new Increment(), new Increment(), new Increment()]);
 

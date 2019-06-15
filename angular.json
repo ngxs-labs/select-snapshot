@@ -32,7 +32,7 @@
             "options": {
               "tsConfig": [
                 "src/tsconfig.lib.json",
-                "src/tsconfig.spec.json"
+                "tsconfig.spec.json"
               ],
               "exclude": [
                 "**/node_modules/**"
