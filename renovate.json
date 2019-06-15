@@ -1,6 +1,7 @@
 {
   "rangeStrategy": "bump",
   "separateMajorMinor": false,
+  "automerge": true,
   "timezone": "UTC",
   "baseBranches": ["master"],
   "ignoreDeps": ["@types/node"],
