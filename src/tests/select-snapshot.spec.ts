@@ -16,7 +16,7 @@ describe('SelectSnapshot', () => {
   }
 
   class AddPanda {
-    public static type = '[Animals] Add panda';
+    static type = '[Animals] Add panda';
     constructor(public name: string) {}
   }
 
@@ -35,35 +35,32 @@ describe('SelectSnapshot', () => {
   @State<BearsChildrenStateModel>({
     name: 'bearsChildren',
     defaults: {
-      children: []
-    }
+      children: [],
+    },
   })
   class BearsChildrenState {}
 
   @State<BearsStateModel>({
     name: 'bears',
     defaults: [],
-    children: [BearsChildrenState]
+    children: [BearsChildrenState],
   })
   class BearsState {}
 
   @State<AnimalsStateModel>({
     name: 'animals',
     defaults: {
-      pandas: []
+      pandas: [],
     },
-    children: [BearsState]
+    children: [BearsState],
   })
   class AnimalsState {
     @Action(AddPanda)
-    public addPanda(
-      { getState, patchState }: StateContext<AnimalsStateModel>,
-      { name }: AddPanda
-    ): void {
+    addPanda({ getState, patchState }: StateContext<AnimalsStateModel>, { name }: AddPanda): void {
       const { pandas } = getState();
 
       patchState({
-        pandas: [...pandas, name]
+        pandas: [...pandas, name],
       });
     }
   }
@@ -73,7 +70,7 @@ describe('SelectSnapshot', () => {
   function configureTestingModule<T>(component: Type<T>): void {
     TestBed.configureTestingModule({
       imports: [NgxsModule.forRoot(states), NgxsSelectSnapshotModule.forRoot()],
-      declarations: [component]
+      declarations: [component],
     });
   }
 
@@ -85,14 +82,11 @@ describe('SelectSnapshot', () => {
     // Arrange
     @Component({ template: '' })
     class TestComponent {
-      @SelectSnapshot('animals')
-      public animals!: AnimalsStateModel;
+      @SelectSnapshot('animals') animals!: AnimalsStateModel;
 
-      @SelectSnapshot('animals.bears')
-      public bears!: BearsStateModel;
+      @SelectSnapshot('animals.bears') bears!: BearsStateModel;
 
-      @SelectSnapshot('animals.bears.bearsChildren')
-      public bearsChildren!: BearsChildrenStateModel;
+      @SelectSnapshot('animals.bears.bearsChildren') bearsChildren!: BearsChildrenStateModel;
     }
 
     // Act
@@ -100,7 +94,7 @@ describe('SelectSnapshot', () => {
 
     // Assert
     const { animals, bears, bearsChildren } = TestBed.createComponent(
-      TestComponent
+      TestComponent,
     ).componentInstance;
 
     expect(animals.pandas).toBeDefined();
@@ -117,25 +111,22 @@ describe('SelectSnapshot', () => {
     // Arrange
     @Component({ template: '' })
     class TestComponent {
-      @SelectSnapshot(AnimalsState)
-      public animals!: AnimalsStateModel;
+      @SelectSnapshot(AnimalsState) animals!: AnimalsStateModel;
 
-      @SelectSnapshot(BearsState)
-      public bears!: BearsStateModel;
+      @SelectSnapshot(BearsState) bears!: BearsStateModel;
 
-      @SelectSnapshot(BearsChildrenState)
-      public bearsChildren!: BearsChildrenStateModel;
+      @SelectSnapshot(BearsChildrenState) bearsChildren!: BearsChildrenStateModel;
     }
 
     // Act
     TestBed.configureTestingModule({
       imports: [NgxsModule.forRoot(states)],
-      declarations: [TestComponent]
+      declarations: [TestComponent],
     });
 
     // Assert
     const { animals, bears, bearsChildren } = TestBed.createComponent(
-      TestComponent
+      TestComponent,
     ).componentInstance;
 
     expect(animals.pandas).toBeDefined();
@@ -153,7 +144,7 @@ describe('SelectSnapshot', () => {
     @Component({ template: '' })
     class TestComponent {
       @SelectSnapshot((state: RootStateModel) => state.animals.bears.bearsChildren)
-      public bearsChildren!: BearsChildrenStateModel;
+      bearsChildren!: BearsChildrenStateModel;
     }
 
     // Act
@@ -166,12 +157,11 @@ describe('SelectSnapshot', () => {
     expectIsArrayToBeTruthy(bearsChildren.children);
   });
 
-  it('should select the correct state after timeout', (done) => {
+  it('should select the correct state after timeout', done => {
     // Arrange
     @Component({ template: '' })
     class TestComponent {
-      @SelectSnapshot((state: RootStateModel) => state.animals)
-      public animals!: AnimalsStateModel;
+      @SelectSnapshot((state: RootStateModel) => state.animals) animals!: AnimalsStateModel;
 
       constructor(store: Store) {
         setTimeout(() => {
@@ -223,30 +213,29 @@ describe('SelectSnapshot', () => {
 
     @State({
       name: 'counter',
-      defaults: 0
+      defaults: 0,
     })
     class CounterState {
       @Action(Increment)
-      public increment({ setState, getState }: StateContext<number>): void {
+      increment({ setState, getState }: StateContext<number>): void {
         setState(getState() + 1);
       }
     }
 
     @Component({ template: '' })
     class TestComponent {
-      @SelectSnapshot(CounterState)
-      public counter!: number;
+      @SelectSnapshot(CounterState) counter!: number;
     }
 
     // Act
     TestBed.configureTestingModule({
       imports: [NgxsModule.forRoot([CounterState]), NgxsSelectSnapshotModule.forRoot()],
-      declarations: [TestComponent]
+      declarations: [TestComponent],
     });
 
     // Assert
     const { componentInstance } = TestBed.createComponent(TestComponent);
-    const store: Store = TestBed.get<Store>(Store);
+    const store: Store = TestBed.inject<Store>(Store);
 
     store.dispatch([new Increment(), new Increment(), new Increment()]);
 
@@ -260,8 +249,8 @@ describe('SelectSnapshot', () => {
   @State<any>({
     name: 'nullselector',
     defaults: {
-      foo: 'Hello'
-    }
+      foo: 'Hello',
+    },
   })
   class NullSelectorState {
     @Selector()
@@ -274,14 +263,13 @@ describe('SelectSnapshot', () => {
     // Arrange
     @Component({ template: '' })
     class TestComponent {
-      @SelectSnapshot(NullSelectorState.notHere)
-      public state: any;
+      @SelectSnapshot(NullSelectorState.notHere) state: any;
     }
 
     // Act
     TestBed.configureTestingModule({
       imports: [NgxsModule.forRoot([NullSelectorState]), NgxsSelectSnapshotModule.forRoot()],
-      declarations: [TestComponent]
+      declarations: [TestComponent],
     });
 
     // Assert

@@ -1,11 +1,10 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": {},
-  "include": [
-    "src/**/*.ts"
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
   ],
-  "exclude": [
-    "**/*.spec.ts",
-    "server.ts"
+  "include": [
+    "src/**/*.d.ts"
   ]
 }
