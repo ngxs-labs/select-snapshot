@@ -6,7 +6,7 @@
 
 > Flexibile decorator, an alternative for the `@Select` but selects a snapshot of the state
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jf1q7ypda4udyb2h/branch/master?svg=true)](https://ci.appveyor.com/project/arturovt/select-snapshot/branch/master)
+![@ngxs-labs/select-snapshot](https://github.com/ngxs-labs/select-snapshot/workflows/@ngxs-labs/select-snapshot/badge.svg)
 [![NPM](https://badge.fury.io/js/%40ngxs-labs%2Fselect-snapshot.svg)](https://badge.fury.io/js/%40ngxs-labs%2Fselect-snapshot)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/ngxs-labs/select-snapshot/blob/master/LICENSE)
 
