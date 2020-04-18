@@ -30,10 +30,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsSelectSnapshotModule } from '@ngxs-labs/select-snapshot';
 
 @NgModule({
-  imports: [
-    NgxsModule.forRoot(states),
-    NgxsSelectSnapshotModule.forRoot()
-  ]
+  imports: [NgxsModule.forRoot(states), NgxsSelectSnapshotModule.forRoot()],
 })
 export class AppModule {}
 ```
@@ -46,19 +43,19 @@ The `@SelectSnapshot` is just a simple decorator same as `@Select`. It allows yo
 import { State, Action, StateContext } from '@ngxs/store';
 
 class AddPanda {
-  public static type = '[Pandas] Add panda';
+  static type = '[Pandas] Add panda';
   constructor(public panda: string) {}
 }
 
 @State<string[]>({
   name: 'pandas',
-  defaults: []
+  defaults: [],
 })
 export class PandasState {
   @Action(AddPanda)
-  public addPanda({ getState, setState }: StateContext<string[]>, { panda }: AddPanda): void {
-    const pandas = getState();
-    setState([...pandas, panda]);
+  addPanda(ctx: StateContext<string[]>, action: AddPanda): void {
+    const pandas = ctx.getState();
+    ctx.setState([...pandas, action.panda]);
   }
 }
 ```
@@ -73,13 +70,10 @@ import { PandasState } from './pandas.state';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <app-panda *ngFor="let panda of pandas" [panda]="panda"></app-panda>
-  `
+  template: '<app-panda *ngFor="let panda of pandas" [panda]="panda"></app-panda>',
 })
 export class AppComponent {
-  @SelectSnapshot(PandasState)
-  public pandas: string[];  
+  @SelectSnapshot(PandasState) pandas: string[];
 }
 ```
 
