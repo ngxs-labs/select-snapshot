@@ -1,5 +1,5 @@
-import { Injector, Injectable } from '@angular/core';
-import { Store, ɵm as NgxsConfig } from '@ngxs/store';
+import { Injector } from '@angular/core';
+import { Store } from '@ngxs/store';
 
 class NgxsSelectSnapshotModuleIsNotImported extends Error {
   constructor() {
@@ -7,27 +7,27 @@ class NgxsSelectSnapshotModuleIsNotImported extends Error {
   }
 }
 
-@Injectable()
-export class StaticInjector {
-  private static injector: Injector | null = null;
+let injector: Injector | null = null;
 
-  constructor(injector: Injector) {
-    StaticInjector.injector = injector;
+function assertDefined<T>(actual: T | null | undefined): asserts actual is T {
+  if (actual == null) {
+    throw new NgxsSelectSnapshotModuleIsNotImported();
   }
+}
 
-  public static getStore(): never | Store {
-    if (this.injector === null) {
-      throw new NgxsSelectSnapshotModuleIsNotImported();
-    }
+export function setInjector(parentInjector: Injector): void {
+  injector = parentInjector;
+}
 
-    return this.injector.get<Store>(Store);
-  }
+/**
+ * Ensure that we don't keep any references in case of the bootstrapped
+ * module is destroyed via `NgModuleRef.destroy()`.
+ */
+export function clearInjector(): void {
+  injector = null;
+}
 
-  public static getConfig(): never | NgxsConfig {
-    if (this.injector === null) {
-      throw new NgxsSelectSnapshotModuleIsNotImported();
-    }
-
-    return this.injector.get<NgxsConfig>(NgxsConfig);
-  }
+export function getStore(): never | Store {
+  assertDefined(injector);
+  return injector!.get(Store);
 }

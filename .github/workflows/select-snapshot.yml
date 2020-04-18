@@ -1,0 +1,43 @@
+name: '@ngxs-labs/select-snapshot'
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    strategy:
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.12
+
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn --pure-lockfile --non-interactive --no-progress
+
+      - name: Run unit tests
+        run: yarn test
+
+      - name: Build library
+        run: yarn build
+
+      - name: Build integration app in production mode and run SSR tests
+        run: |
+          yarn integration:install
+          yarn integration:build
+          yarn integration:test

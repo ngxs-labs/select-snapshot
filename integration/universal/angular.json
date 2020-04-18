@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "universal-app": {
+    "universal": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -52,11 +52,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "universal-app:build"
+            "browserTarget": "universal:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "universal-app:build:production"
+              "browserTarget": "universal:build:production"
             }
           }
         },
@@ -64,18 +64,47 @@
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist-server",
-            "main": "src/main.server.ts",
+            "main": "server.ts",
             "tsConfig": "tsconfig.server.json"
           },
           "configurations": {
             "production": {
+              "outputHashing": "media",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
-              ]
+              ],
+              "sourceMap": false,
+              "optimization": true
             }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "universal:build",
+            "serverTarget": "universal:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "universal:build:production",
+              "serverTarget": "universal:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "universal:build:production",
+            "serverTarget": "universal:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         },
         "test": {
@@ -87,5 +116,5 @@
       }
     }
   },
-  "defaultProject": "universal-app"
+  "defaultProject": "universal"
 }

@@ -17,8 +17,10 @@ afterAll((done: jest.DoneCallback) => {
 
 describe('SelectSnapshot server-side rendering', () => {
   it('should render counter state', async () => {
+    // Arrange & act
     const body = await request('http://localhost:4200');
 
+    // Assert
     expect(body.indexOf('Server-side rendered counter state is:')).toBeGreaterThan(-1);
     expect(body.indexOf('"counter": 0')).toBeGreaterThan(-1);
   });

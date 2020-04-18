@@ -1,5 +1,10 @@
-import { StaticInjector } from '../internals/static-injector';
-import { META_KEY, getPropsArray, propGetter, removeDollarAtTheEnd } from '../internals/internals';
+import { getStore } from '../internals/static-injector';
+import {
+  META_KEY,
+  getPropsArray,
+  compliantPropGetter,
+  removeDollarAtTheEnd,
+} from '../internals/internals';
 
 export function SelectSnapshot(selectorOrFeature?: any, ...paths: string[]) {
   return (target: any, name: string) => {
@@ -9,36 +14,34 @@ export function SelectSnapshot(selectorOrFeature?: any, ...paths: string[]) {
       selectorOrFeature = removeDollarAtTheEnd(name);
     }
 
-    const createSelector = (selectorOrFeature: any) => {
-      const config = StaticInjector.getConfig();
-
+    function createSelector(selectorOrFeature: any) {
       if (typeof selectorOrFeature === 'string') {
         const propsArray = getPropsArray(selectorOrFeature, paths);
-        return propGetter(propsArray, config);
+        return compliantPropGetter(propsArray);
       } else if (selectorOrFeature[META_KEY] && selectorOrFeature[META_KEY].path) {
-        return propGetter(selectorOrFeature[META_KEY].path.split('.'), config);
+        return compliantPropGetter(selectorOrFeature[META_KEY].path.split('.'));
       } else {
         return selectorOrFeature;
       }
-    };
+    }
 
     if (delete target[name]) {
       Object.defineProperty(target, selectorFnName, {
         writable: true,
         enumerable: false,
-        configurable: true
+        configurable: true,
       });
 
       Object.defineProperty(target, name, {
-        get: function() {
+        get() {
           // Create anonymous function that will map to the needed state only once
           const selector =
             this[selectorFnName] || (this[selectorFnName] = createSelector(selectorOrFeature));
-          const store = StaticInjector.getStore();
+          const store = getStore();
           return store.selectSnapshot(selector);
         },
         enumerable: true,
-        configurable: true
+        configurable: true,
       });
     }
   };
