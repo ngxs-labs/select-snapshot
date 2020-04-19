@@ -1,3 +1,8 @@
-<p>Server-side rendered counter state is:</p>
-<pre>{{ counter | json }}</pre>
-<button (click)="increment()">Increment</button>
+<app-progress [ivyEnabled]="ivyEnabled"></app-progress>
+
+<h3>
+  Progress is being updated using setInverval which shouldn't cause OnPush views gets updated, but
+  our progress does
+</h3>
+
+<button (click)="startProgress()">Start progress</button>

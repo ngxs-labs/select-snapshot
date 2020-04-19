@@ -4,18 +4,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsSelectSnapshotModule } from '@ngxs-labs/select-snapshot';
 
-import { CounterState } from './store';
+import { ProgressState } from './store';
 
 import { AppComponent } from './app.component';
+import { ProgressComponent } from './components/progress/progress.component';
 
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: 'universal-select-snapshot' }),
     HttpClientModule,
-    NgxsModule.forRoot([CounterState]),
-    NgxsSelectSnapshotModule.forRoot()
+    NgxsModule.forRoot([ProgressState]),
+    NgxsSelectSnapshotModule.forRoot(),
   ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, ProgressComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

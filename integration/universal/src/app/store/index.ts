@@ -1,2 +1,2 @@
-export * from './counter/counter.actions';
-export * from './counter/counter.state';
+export * from './progress/progress.state';
+export * from './progress/progress.actions';
