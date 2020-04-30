@@ -6496,10 +6496,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.2.0.tgz#e0356ab593ddc2cd4205d7f880c2205bb01f5e48"
-  integrity sha512-4Dw2XMtEOGpICl0wvicE5KT/eFlt/kmwMmpNS4v09I/ywRWuR5udbMWjdfZez24jE6r0bQmPpkLZ1+wUGE1S+w==
+lint-staged@^10.2.1:
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.2.1.tgz#def64534c2a5f28e5b723a4bd970347d5b015339"
+  integrity sha512-UPeqH0z+WzM5Gd2Ip/YfqA16SLiX3fCiC/in9hKioMDDMUUTN8YQbj0hupgQpyR5YZN35KCW9d4kjvH9XGN+3Q==
   dependencies:
     chalk "^4.0.0"
     commander "^5.0.0"
@@ -7173,10 +7173,10 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-ng-packagr@^9.1.1:
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-9.1.1.tgz#ba3b929ced0a8bd637e89a84ac2591d8abb53c69"
-  integrity sha512-20umbeklnsntUoTXBKuQQj4Oyw1tauVU7TZPRFC+n3bXuB29rb+91HIBtt8k7l0BuXN5G4HiXgmPW8xDGu7HWg==
+ng-packagr@^9.1.2:
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-9.1.2.tgz#a88371fd03a3203c1964fb369b7cc6c49fce7504"
+  integrity sha512-/FCd4R4o/ZWJ3nzfht1TvAVPTSF2Zrvrf5DteNOttfV+oFRbpZJ9W4VdOhsAdTijghENXHRFm4R7Eb+LT6DsUA==
   dependencies:
     "@rollup/plugin-commonjs" "^11.0.2"
     "@rollup/plugin-json" "^4.0.0"
@@ -7197,7 +7197,7 @@ ng-packagr@^9.1.1:
     postcss-url "^8.0.0"
     read-pkg-up "^5.0.0"
     rimraf "^3.0.0"
-    rollup "2.6.1"
+    rollup "2.7.5"
     rollup-plugin-sourcemaps "^0.5.0"
     rxjs "^6.5.0"
     sass "^1.23.0"
@@ -9150,10 +9150,10 @@ rollup@2.1.0:
   optionalDependencies:
     fsevents "~2.1.2"
 
-rollup@2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.6.1.tgz#8354e67caa7b8bf24c2488d9e2f64da2be62eebe"
-  integrity sha512-1RhFDRJeg027YjBO6+JxmVWkEZY0ASztHhoEUEWxOwkh4mjO58TFD6Uo7T7Y3FbmDpRTfKhM5NVxJyimCn0Elg==
+rollup@2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.7.5.tgz#dd4e4518b58348a841aefa47bea544f3be27a76f"
+  integrity sha512-xQSM8uzhgtF6tTnTVEvOQThrcG3LPUP3T/4l4EukzDp0kbTY1QRDuXjiwtYzs9odKj9Bj/PccRG6viFfS7DmCQ==
   optionalDependencies:
     fsevents "~2.1.2"
 
