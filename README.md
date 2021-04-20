@@ -12,12 +12,17 @@
 
 ## Table of Contents
 
+- [Angular Compatibility](#angular-compatibility)
 - [Install](#📦-install)
 - [Usage](#🔨-usage)
 - [API](#api)
   - [SelectSnapshot](#selectsnapshot)
   - [ViewSelectSnapshot](#viewselectsnapshot)
 - [Summary](#summary)
+
+## Angular Compatibility
+
+`@ngxs-labs/select-snapshot@3+` is compatible only with Angular starting from 10.0.5 version.
 
 ## 📦 Install
 
