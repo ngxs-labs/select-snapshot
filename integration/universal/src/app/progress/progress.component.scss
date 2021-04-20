@@ -1,14 +1,15 @@
 :host {
   width: 500px;
+  display: flex;
 
-  div {
+  .progress-wrapper {
     width: 100%;
     background-color: #e0e0e0;
     padding: 3px;
     border-radius: 3px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 
-    div {
+    .progress {
       display: block;
       height: 22px;
       background-color: #659cef;
