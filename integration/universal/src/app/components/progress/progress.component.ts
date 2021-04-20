@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, HostBinding, OnDestroy } from '@angular/core';
 import { ViewSelectSnapshot } from '@ngxs-labs/select-snapshot';
 
 import { ProgressState } from '../../store';
@@ -13,8 +13,12 @@ import { ProgressState } from '../../store';
   styleUrls: ['./progress.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProgressComponent {
+export class ProgressComponent implements OnDestroy {
   @Input() @HostBinding('class.ivy-enabled') ivyEnabled: boolean;
 
   @ViewSelectSnapshot(ProgressState.getProgress) progress: number;
+
+  ngOnDestroy(): void {
+    console.log('Just ensuring that this hook is still called.');
+  }
 }

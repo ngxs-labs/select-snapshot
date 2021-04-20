@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { Store } from '@ngxs/store';
 
 import { getStore } from './static-injector';
 import { removeDollarAtTheEnd, getPropsArray, compliantPropGetter, META_KEY } from './internals';
@@ -30,10 +31,11 @@ export function getSelectorFromInstance(
 export function defineSelectSnapshotProperties(
   selectorOrFeature: any,
   paths: string[],
-  target: Type<unknown>,
-  name: string,
+  target: Object,
+  name: string | symbol,
+  store?: Store,
 ) {
-  const selectorFnName = `__${name}__selector`;
+  const selectorFnName = `__${name.toString()}__selector`;
   const createSelector = createSelectorFactory(paths);
 
   Object.defineProperties(target, {
@@ -52,7 +54,7 @@ export function defineSelectSnapshotProperties(
         );
         // Don't use the `directiveInject` here as it works ONLY
         // during view creation.
-        const store = getStore();
+        store = store || getStore();
         return store.selectSnapshot(selector);
       },
       enumerable: true,

@@ -1,4 +1,4 @@
-import { Component, ɵivyEnabled, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ɵivyEnabled, ChangeDetectionStrategy, NgModuleRef } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 
@@ -14,7 +14,7 @@ export class AppComponent {
 
   @SelectSnapshot(ProgressState.getProgress) progress: number;
 
-  constructor(private store: Store) {}
+  constructor(private ngModuleRef: NgModuleRef<unknown>, private store: Store) {}
 
   startProgress(): void {
     const intervalId = setInterval(() => {
@@ -26,5 +26,9 @@ export class AppComponent {
         this.store.dispatch(new IncrementProgress());
       }
     }, 20);
+  }
+
+  destroy(): void {
+    this.ngModuleRef.destroy();
   }
 }

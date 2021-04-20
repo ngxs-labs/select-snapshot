@@ -1,6 +1,9 @@
 const DOLLAR_CHAR_CODE = 36;
 
-export function removeDollarAtTheEnd(name: string): string {
+export function removeDollarAtTheEnd(name: string | symbol): string {
+  if (typeof name !== 'string') {
+    name = name.toString();
+  }
   const lastCharIndex = name.length - 1;
   const dollarAtTheEnd = name.charCodeAt(lastCharIndex) === DOLLAR_CHAR_CODE;
   return dollarAtTheEnd ? name.slice(0, lastCharIndex) : name;
