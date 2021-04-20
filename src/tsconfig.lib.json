@@ -2,6 +2,7 @@
     "extends": "../tsconfig.json",
     "compilerOptions": {
       "target": "es2015",
+      "declarationMap": true,
       "module": "es2015",
       "lib": [
         "dom",

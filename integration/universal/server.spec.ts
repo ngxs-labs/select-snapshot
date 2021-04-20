@@ -23,5 +23,6 @@ describe('SelectSnapshot server-side rendering', () => {
     // Assert
     expect(body.indexOf('app-progress')).toBeGreaterThan(-1);
     expect(body.indexOf('class="ivy-enabled"')).toBeGreaterThan(-1);
+    expect(body.indexOf('style="width:0%;"')).toBeGreaterThan(-1);
   });
 });
