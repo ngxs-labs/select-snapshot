@@ -1,20 +1,16 @@
 import { Component, ChangeDetectionStrategy, Input, HostBinding, OnDestroy } from '@angular/core';
 import { ViewSelectSnapshot } from '@ngxs-labs/select-snapshot';
 
-import { ProgressState } from '../../store';
+import { ProgressState } from '../store';
 
 @Component({
   selector: 'app-progress',
-  template: `
-    <div>
-      <div [style.width.%]="progress"></div>
-    </div>
-  `,
+  templateUrl: './progress.component.html',
   styleUrls: ['./progress.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressComponent implements OnDestroy {
-  @Input() @HostBinding('class.ivy-enabled') ivyEnabled: boolean;
+  @HostBinding('class.ivy-enabled') ivyEnabled: boolean;
 
   @ViewSelectSnapshot(ProgressState.getProgress) progress: number;
 

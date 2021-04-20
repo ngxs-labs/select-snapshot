@@ -9,7 +9,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Subscription } from 'rxjs';
+import {  Subscription } from 'rxjs';
 
 import {
   defineSelectSnapshotProperties,

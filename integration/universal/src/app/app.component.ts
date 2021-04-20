@@ -1,4 +1,13 @@
-import { Component, ɵivyEnabled, ChangeDetectionStrategy, NgModuleRef } from '@angular/core';
+import {
+  Component,
+  ɵivyEnabled,
+  ChangeDetectionStrategy,
+  NgModuleRef,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+} from '@angular/core';
 import { Store } from '@ngxs/store';
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 
@@ -7,14 +16,32 @@ import { ProgressState, IncrementProgress } from './store';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  ivyEnabled = ɵivyEnabled;
+export class AppComponent implements OnInit {
+  @ViewChild('progressContainer', {
+    static: true,
+    read: ViewContainerRef,
+  })
+  progressContainer: ViewContainerRef;
 
   @SelectSnapshot(ProgressState.getProgress) progress: number;
 
-  constructor(private ngModuleRef: NgModuleRef<unknown>, private store: Store) {}
+  constructor(
+    private ngModuleRef: NgModuleRef<unknown>,
+    private resolver: ComponentFactoryResolver,
+    private store: Store,
+  ) {}
+
+  ngOnInit(): void {
+    import(/* webpackChunkName: 'progress' */ './progress/progress.module').then(m => {
+      const factory = this.resolver.resolveComponentFactory(m.ProgressComponent);
+      const ref = this.progressContainer.createComponent(factory);
+      ref.instance.ivyEnabled = ɵivyEnabled;
+      ref.changeDetectorRef.detectChanges();
+    });
+  }
 
   startProgress(): void {
     const intervalId = setInterval(() => {

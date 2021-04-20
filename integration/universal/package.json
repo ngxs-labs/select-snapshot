@@ -6,6 +6,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "serve": "ng s --live-reload false",
     "test:ci": "ng test --run-in-band",
     "dev:ssr": "ng run universal:serve-ssr",
     "serve:ssr": "node dist-server/main.js",
