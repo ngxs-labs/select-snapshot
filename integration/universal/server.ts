@@ -1,8 +1,8 @@
-import 'zone.js/dist/zone-node';
+import 'zone.js/node';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
-import * as express from 'express';
+const express = require('express');
 import { join } from 'path';
 import { existsSync } from 'fs';
 

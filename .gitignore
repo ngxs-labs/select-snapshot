@@ -1,3 +1,5 @@
+/.angular/cache
+/integration/universal/.angular/cache
 dist
 dist-server
 node_modules
