@@ -2,9 +2,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "moduleResolution": "node",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ES2015",

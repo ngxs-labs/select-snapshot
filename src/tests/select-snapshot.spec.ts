@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Component, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { State, Action, StateContext, NgxsModule, Store, Selector } from '@ngxs/store';
@@ -38,6 +39,7 @@ describe('SelectSnapshot', () => {
       children: [],
     },
   })
+  @Injectable()
   class BearsChildrenState {}
 
   @State<BearsStateModel>({
@@ -45,6 +47,7 @@ describe('SelectSnapshot', () => {
     defaults: [],
     children: [BearsChildrenState],
   })
+  @Injectable()
   class BearsState {}
 
   @State<AnimalsStateModel>({
@@ -54,6 +57,7 @@ describe('SelectSnapshot', () => {
     },
     children: [BearsState],
   })
+  @Injectable()
   class AnimalsState {
     @Action(AddPanda)
     addPanda({ getState, patchState }: StateContext<AnimalsStateModel>, { name }: AddPanda): void {
@@ -69,7 +73,10 @@ describe('SelectSnapshot', () => {
 
   function configureTestingModule<T>(component: Type<T>): void {
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot(states), NgxsSelectSnapshotModule.forRoot()],
+      imports: [
+        NgxsModule.forRoot(states, { developmentMode: true }),
+        NgxsSelectSnapshotModule.forRoot(),
+      ],
       declarations: [component],
     });
   }
@@ -93,9 +100,8 @@ describe('SelectSnapshot', () => {
     configureTestingModule(TestComponent);
 
     // Assert
-    const { animals, bears, bearsChildren } = TestBed.createComponent(
-      TestComponent,
-    ).componentInstance;
+    const { animals, bears, bearsChildren } =
+      TestBed.createComponent(TestComponent).componentInstance;
 
     expect(animals.pandas).toBeDefined();
     expectIsArrayToBeTruthy(animals.pandas);
@@ -120,14 +126,16 @@ describe('SelectSnapshot', () => {
 
     // Act
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot(states)],
+      imports: [
+        NgxsModule.forRoot(states, { developmentMode: true }),
+        NgxsSelectSnapshotModule.forRoot(),
+      ],
       declarations: [TestComponent],
     });
 
     // Assert
-    const { animals, bears, bearsChildren } = TestBed.createComponent(
-      TestComponent,
-    ).componentInstance;
+    const { animals, bears, bearsChildren } =
+      TestBed.createComponent(TestComponent).componentInstance;
 
     expect(animals.pandas).toBeDefined();
     expectIsArrayToBeTruthy(animals.pandas);
@@ -215,6 +223,7 @@ describe('SelectSnapshot', () => {
       name: 'counter',
       defaults: 0,
     })
+    @Injectable()
     class CounterState {
       @Action(Increment)
       increment({ setState, getState }: StateContext<number>): void {
@@ -229,7 +238,10 @@ describe('SelectSnapshot', () => {
 
     // Act
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([CounterState]), NgxsSelectSnapshotModule.forRoot()],
+      imports: [
+        NgxsModule.forRoot([CounterState], { developmentMode: true }),
+        NgxsSelectSnapshotModule.forRoot(),
+      ],
       declarations: [TestComponent],
     });
 
@@ -252,6 +264,7 @@ describe('SelectSnapshot', () => {
       foo: 'Hello',
     },
   })
+  @Injectable()
   class NullSelectorState {
     @Selector()
     static notHere(state: any) {
@@ -268,7 +281,10 @@ describe('SelectSnapshot', () => {
 
     // Act
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([NullSelectorState]), NgxsSelectSnapshotModule.forRoot()],
+      imports: [
+        NgxsModule.forRoot([NullSelectorState], { developmentMode: true }),
+        NgxsSelectSnapshotModule.forRoot(),
+      ],
       declarations: [TestComponent],
     });
 
