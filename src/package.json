@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/ng-packagr/package.schema.json",
   "name": "@ngxs-labs/select-snapshot",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ngxs-labs/select-snapshot.git"
@@ -18,8 +18,8 @@
   ],
   "sideEffects": false,
   "peerDependencies": {
-    "@angular/core": ">=10.0.5",
-    "@ngxs/store": ">=3.4.3",
+    "@angular/core": ">=13.0.0",
+    "@ngxs/store": ">=3.7.3",
     "rxjs": ">=6.5.2"
   }
 }
