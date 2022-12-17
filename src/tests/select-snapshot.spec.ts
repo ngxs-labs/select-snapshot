@@ -213,29 +213,29 @@ describe('SelectSnapshot', () => {
     }
   });
 
+  // Arrange
+  class Increment {
+    public static type = '[Counter] Increment';
+  }
+
+  @State({
+    name: 'counter',
+    defaults: 0,
+  })
+  @Injectable()
+  class CounterState {
+    @Action(Increment)
+    increment({ setState, getState }: StateContext<number>): void {
+      setState(getState() + 1);
+    }
+  }
+
+  @Component({ template: '' })
+  class TestComponent {
+    @SelectSnapshot(CounterState) counter!: number;
+  }
+
   it('should get the correct snapshot after dispatching multiple actions', () => {
-    // Arrange
-    class Increment {
-      public static type = '[Counter] Increment';
-    }
-
-    @State({
-      name: 'counter',
-      defaults: 0,
-    })
-    @Injectable()
-    class CounterState {
-      @Action(Increment)
-      increment({ setState, getState }: StateContext<number>): void {
-        setState(getState() + 1);
-      }
-    }
-
-    @Component({ template: '' })
-    class TestComponent {
-      @SelectSnapshot(CounterState) counter!: number;
-    }
-
     // Act
     TestBed.configureTestingModule({
       imports: [
@@ -256,6 +256,27 @@ describe('SelectSnapshot', () => {
     store.dispatch(new Increment());
 
     expect(componentInstance.counter).toBe(4);
+  });
+
+  it('should get the correct state after destroying the module', () => {
+    // Act
+    TestBed.configureTestingModule({
+      imports: [
+        NgxsModule.forRoot([CounterState], { developmentMode: true }),
+        NgxsSelectSnapshotModule.forRoot(),
+      ],
+      declarations: [TestComponent],
+    });
+
+    // Assert
+    const { componentInstance } = TestBed.createComponent(TestComponent);
+    const store: Store = TestBed.inject<Store>(Store);
+
+    expect(componentInstance.counter).toBe(0);
+
+    store.dispatch(new Increment());
+
+    expect(componentInstance.counter).toBe(1);
   });
 
   @State<any>({
