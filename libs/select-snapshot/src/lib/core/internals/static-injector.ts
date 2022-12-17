@@ -8,6 +8,7 @@ class NgxsSelectSnapshotModuleIsNotImported extends Error {
 }
 
 let injector: Injector | null = null;
+let store: Store | null = null;
 
 function assertDefined<T>(actual: T | null | undefined): asserts actual is T {
   if (actual == null) {
@@ -25,9 +26,10 @@ export function setInjector(parentInjector: Injector): void {
  */
 export function clearInjector(): void {
   injector = null;
+  store = null;
 }
 
 export function getStore(): never | Store {
   assertDefined(injector);
-  return injector!.get(Store);
+  return store || injector!.get(Store);
 }
