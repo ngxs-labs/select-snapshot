@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "module": "commonjs",
-    "types": ["jest", "node"],
-    "useUnknownInCatchVariables": false
-  },
-  "include": ["src/*.spec.ts", "**/*.d.ts"]
-}
