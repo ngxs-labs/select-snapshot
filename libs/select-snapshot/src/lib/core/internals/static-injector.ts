@@ -31,5 +31,6 @@ export function clearInjector(): void {
 
 export function getStore(): never | Store {
   assertDefined(injector);
-  return store || injector!.get(Store);
+  store = store || injector!.get(Store);
+  return store;
 }
