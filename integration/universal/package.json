@@ -1,0 +1,47 @@
+{
+  "name": "universal-app",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "serve": "ng s --live-reload false",
+    "test:ci": "ng test --run-in-band",
+    "dev:ssr": "ng run universal:serve-ssr",
+    "serve:ssr": "node dist-server/main.js",
+    "build:ssr": "ng build --configuration production && ng run universal:server:production",
+    "test:ssr": "yarn concurrently yarn:serve:ssr yarn:test:ci",
+    "prerender": "ng run universal:prerender",
+    "postinstall": "yarn --cwd ../../ cpx -v -C \"dist/**/*\" \"integration/universal/node_modules/@ngxs-labs/select-snapshot/\" && ngcc"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^13.2.3",
+    "@angular/common": "file:../../node_modules/@angular/common",
+    "@angular/compiler": "file:../../node_modules/@angular/compiler",
+    "@angular/core": "file:../../node_modules/@angular/core",
+    "@angular/platform-browser": "file:../../node_modules/@angular/platform-browser",
+    "@angular/platform-browser-dynamic": "file:../../node_modules/@angular/platform-browser-dynamic",
+    "@angular/platform-server": "^13.2.3",
+    "@nguniversal/express-engine": "^13.0.2",
+    "@ngxs/store": "file:../../node_modules/@ngxs/store",
+    "express": "4.17.3",
+    "rxjs": "file:../../node_modules/rxjs",
+    "zone.js": "file:../../node_modules/zone.js"
+  },
+  "devDependencies": {
+    "@angular-builders/jest": "file:../../node_modules/@angular-builders/jest",
+    "@angular-devkit/build-angular": "file:../../node_modules/@angular-devkit/build-angular",
+    "@angular/cli": "file:../../node_modules/@angular/cli",
+    "@angular/compiler-cli": "file:../../node_modules/@angular/compiler-cli",
+    "@nguniversal/builders": "^13.0.2",
+    "@types/jest": "file:../../node_modules/@types/jest",
+    "@types/node": "file:../../node_modules/@types/node",
+    "concurrently": "^5.1.0",
+    "jest": "file:../../node_modules/jest",
+    "ts-node": "file:../../node_modules/ts-node",
+    "tslib": "file:../../node_modules/tslib",
+    "typescript": "file:../../node_modules/typescript"
+  }
+}
