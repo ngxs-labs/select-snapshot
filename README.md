@@ -12,7 +12,7 @@
 
 ## Table of Contents
 
-- [Angular Compatibility](#angular-compatibility)
+- [Compatibility with Angular Versions](#compatibility-with-angular-versions)
 - [Install](#📦-install)
 - [Usage](#🔨-usage)
 - [API](#api)
@@ -20,18 +20,53 @@
   - [ViewSelectSnapshot](#viewselectsnapshot)
 - [Summary](#summary)
 
-## Angular Compatibility
+## Compatibility with Angular Versions
 
-`@ngxs-labs/select-snapshot@3+` is compatible only with Angular starting from 10.0.5 version.
+<table>
+  <thead>
+    <tr>
+      <th>@ngxs-labs/select-snapshot</th>
+      <th>Angular</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        3.x
+      </td>
+      <td>
+        >= 10.0.5 < 13
+      </td>
+    </tr>
+    <tr>
+      <td>
+        4.x
+      </td>
+      <td>
+        >= 13 < 15
+      </td>
+    </tr>
+    <tr>
+      <td>
+        5.x
+      </td>
+      <td>
+        >= 15
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## 📦 Install
 
-To install `@ngxs-labs/select-snapshot` run the following command:
+To install `@ngxs-labs/select-snapshot`, run the following command:
 
-```console
-npm install @ngxs-labs/select-snapshot
-# of if you use yarn
-yarn add @ngxs-labs/select-snapshot
+```sh
+$ npm install @ngxs-labs/select-snapshot
+# Or if you're using yarn
+$ yarn add @ngxs-labs/select-snapshot
+# Or if you're using pnpm
+$ pnpm install @ngxs-labs/select-snapshot
 ```
 
 ## 🔨 Usage
@@ -51,11 +86,11 @@ export class AppModule {}
 
 ## API
 
-There are 2 decorators exposed publicly. These are `@SelectSnapshot` and `@ViewSelectSnapshot`. They can be used to decorate class properties.
+`@ngxs-labs/select-snapshot` exposes `@SelectSnapshot` and `@ViewSelectSnapshot` decorators, they might be used to decorate class properties.
 
 ### SelectSnapshot
 
-`@SelectSnapshot` decorator behaves the same as the `@Select` decorator. The only difference is `@SelectSnapshot` decorated property will always return the current state value whereas `@Select` decorated property returns an `Observable`. Let's look at the following example:
+`@SelectSnapshot` decorator should be used similarly to the `@Select` decorator. It will decorate the property to always return the selected value, whereas `@Select` decorates properties to return observable. Given the following example:
 
 ```ts
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
@@ -78,7 +113,7 @@ export class TokenInterceptor {
 }
 ```
 
-As you may notice we don't have to inject the `Store` class and invoke the `selectSnapshot` on it.
+We don't have to inject the `Store` and call the `selectSnapshot`.
 
 ### ViewSelectSnapshot
 
@@ -100,7 +135,7 @@ export class ProgressComponent {
 }
 ```
 
-Why? Because if the `progress` state gets updated then Angular has to check that view and update it. This view will not get updated because it's marked as `OnPush`, which means it's constantly in `CheckOnce` state. How to make the above example work?
+The `@ViewSelectSnapshot` decorator will force the template to be updated whenever the `progress` property is changed on the state:
 
 ```ts
 @Component({
@@ -118,7 +153,7 @@ export class ProgressComponent {
 }
 ```
 
-How does it work? The `@ViewSelectSnapshot` decorator calls `markForCheck()` under the hood when the `progress` state gets updated.
+The decorator internally subscribes to `store.select` with the provided selector and calls `markForCheck()` whenever the state is updated (and the selector emits).
 
 ## Summary
 
