@@ -1,0 +1,144 @@
+{
+  "name": "demos",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/demos/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/demos/browser",
+        "index": "apps/demos/src/index.html",
+        "main": "apps/demos/src/main.ts",
+        "polyfills": "apps/demos/src/polyfills.ts",
+        "tsConfig": "apps/demos/tsconfig.app.json",
+        "styles": [],
+        "scripts": [],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true,
+        "assets": ["apps/demos/src/favicon.ico", "apps/demos/src/assets"]
+      },
+      "configurations": {
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/demos/src/environments/environment.ts",
+              "with": "apps/demos/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "demos:build"
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "demos:build:development"
+        },
+        "production": {
+          "browserTarget": "demos:build:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/demos/src/**/*.ts", "apps/demos/src/**/*.html"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/demos"],
+      "options": {
+        "jestConfig": "apps/demos/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/demos/server",
+        "main": "apps/demos/src/server.ts",
+        "tsConfig": "apps/demos/tsconfig.server.json",
+        "sourceMap": true,
+        "optimization": false
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false
+        },
+        "production": {
+          "sourceMap": false,
+          "optimization": true,
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "apps/demos/src/environments/environment.ts",
+              "with": "apps/demos/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "options": {
+        "browserTarget": "demos:build",
+        "serverTarget": "demos:server"
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "demos:build:development",
+          "serverTarget": "demos:server:development"
+        },
+        "production": {
+          "browserTarget": "demos:build:production",
+          "serverTarget": "demos:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    }
+  },
+  "type": ["app"]
+}

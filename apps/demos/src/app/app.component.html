@@ -1,0 +1,9 @@
+<ng-template #progressContainer></ng-template>
+
+<h3>
+  Progress is being updated using setInverval which shouldn't cause OnPush views gets updated, but
+  our progress does
+</h3>
+
+<button (click)="startProgress()" data-cy="start-progress">Start progress</button>
+<button (click)="destroy()">Destroy</button>
