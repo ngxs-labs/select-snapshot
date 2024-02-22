@@ -90,7 +90,7 @@ export class AppModule {}
 
 ### SelectSnapshot
 
-`@SelectSnapshot` decorator should be used similarly to the `@Select` decorator. It will decorate the property to always return the selected value, whereas `@Select` decorates properties to return observable. Given the following example:
+`@SelectSnapshot` decorator should be used similarly to the `@Select` decorator. It will decorate the property to always return the latest selected value, whereas `@Select` decorates properties to return observable. Given the following example:
 
 ```ts
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
@@ -114,6 +114,16 @@ export class TokenInterceptor {
 ```
 
 We don't have to inject the `Store` and call the `selectSnapshot`.
+
+Behind the scenes, `@SelectSnapshot` sets up a getter that calls `store.selectSnapshot` with the provided selector on each access.
+In the above example, it roughly equates to setting up this property getter:
+
+```ts
+get token(): string | null {
+  // ... inject `Store` in variable `store`
+  return store.selectSnapshot(AuthState.token);
+}
+```
 
 ### ViewSelectSnapshot
 
