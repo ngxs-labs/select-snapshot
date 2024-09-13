@@ -53,7 +53,7 @@ export function defineSelectSnapshotProperties(
         );
         // Don't use the `directiveInject` here as it works ONLY
         // during view creation.
-        store = store || getStore();
+        store = getStore();
         return store.selectSnapshot(selector);
       },
       enumerable: true,
